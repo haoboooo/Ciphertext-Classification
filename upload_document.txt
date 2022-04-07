@@ -1,0 +1,21 @@
+Complete this document and upload along with your prediction results and your code.
+
+### Method Name ###
+TF-IDF + Logistic Regression(with best accuracy)
+Also experiment with TF-IDF + SVM, TF-IDF + Naive Bayes, TF-IDF + Random Forest, TF-IDF + CatBoost, Cipherword Word2Vec + BiLSTM
+
+### Representation of sentence ###
+TF-IDF: I firstly collect all the ciphertext sentences, and calculate the term frequency and inverse document frequency and multiply them together to get the representation for each word, and then we could vectorize each ciphertext sentence into a vector representation by using TfidfVectorizer from sklearn package while considering n-gram with size between 1 and 3.
+I also tried Word2Vec where I utilize Word2Vec model from gensim package, and train the model with the training dataset with 100 embedding dimensions to obtain the representation of ciphertext sentences,but it doesn't achieve the best accuracy with BiLSTM classifier.
+
+### Classifier ###
+The encoder is a logistic regression model and the loss function is cross-entropy. Maximizing the likelihood estimation would get the same results with optimizing the cross-entropy loss. Additionally, I add L2 penalty to avoid overfitting. And I set the LBFGS algorithm as the optimization algorithm. I firstly train the encoder by using the training ciphertext sentences and obtain the accuracy on the development dataset. 
+
+### Training & Development ###
+I use GridSearch to find the best combination of parameters in the LogisticRegression model with the highest accuracy on the development dataset, in order to obtain the best encoder. There are some hyperparameters such as solvers, penalty, C, which represents the optimization algorithm, the penalty in loss function, and the regularization coefficient respectively. And the result of GridSearch shows that the best values for these three hyperparameters are lbfgs algorithm, l2 penalty and 10 as the value of hyperparameter C correspondingly. After I attain the best hyperparameters, I train the Logistic Regression model again. The training would terminate in 100 iterations because I set 100 to the value of parameter max_iter.
+
+### Other methods ###
+Also experiment with TF-IDF + SVM, TF-IDF + Naive Bayes, TF-IDF + Random Forest, TF-IDF + CatBoost, Cipherword Word2Vec + BiLSTM
+
+### Packages ###
+numpy, sklearn, catboost, gensim, tensorflow, matplotlib
